@@ -27,17 +27,7 @@ export default function LoginPage() {
       if (signInError) throw signInError
 
       if (data.user) {
-        const { data: profile } = await supabase
-          .from('users')
-          .select('role')
-          .eq('id', data.user.id)
-          .single()
-
-        if (profile?.role === 'admin') {
-          router.push('/admin')
-        } else {
-          router.push('/account')
-        }
+        router.replace('/admin')
       }
     } catch (err: any) {
       setError(err.message || 'Failed to sign in')
@@ -71,6 +61,7 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="username"
               className="w-full px-4 py-3 border border-charcoal/20 focus:outline-none focus:border-gold"
             />
           </div>
@@ -85,6 +76,7 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              autoComplete="current-password"
               className="w-full px-4 py-3 border border-charcoal/20 focus:outline-none focus:border-gold"
             />
           </div>

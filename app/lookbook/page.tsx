@@ -47,7 +47,7 @@ export default async function LookbookPage() {
                       ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' 
                       : 'grid-cols-1 md:grid-cols-3'
                   }`}>
-                    {collection.images.map((image, imgIndex) => (
+                    {collection.images.map((image: string, imgIndex: number) => (
                       <div
                         key={imgIndex}
                         className={`relative overflow-hidden bg-charcoal/5 ${

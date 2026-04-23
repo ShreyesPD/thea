@@ -62,7 +62,12 @@ export const useCartStore = create<CartStore>()(
         }))
       },
 
-      clearCart: () => set({ items: [] }),
+      clearCart: () => {
+        set({ items: [] })
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('thea-cart')
+        }
+      },
 
       getTotalItems: () => {
         return get().items.reduce((total, item) => total + item.quantity, 0)

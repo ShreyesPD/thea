@@ -19,10 +19,13 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.20",
+    "axios": "^1.15.0",
+    "crypto": "^1.0.1",
     "eslint": "^9",
     "eslint-config-next": "15.1.3",
     "postcss": "^8.4.49",

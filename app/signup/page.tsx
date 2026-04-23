@@ -66,6 +66,7 @@ export default function SignupPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
+              autoComplete="name"
               className="w-full px-4 py-3 border border-charcoal/20 focus:outline-none focus:border-gold"
             />
           </div>
@@ -80,6 +81,7 @@ export default function SignupPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="email"
               className="w-full px-4 py-3 border border-charcoal/20 focus:outline-none focus:border-gold"
             />
           </div>
@@ -95,6 +97,7 @@ export default function SignupPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={6}
+              autoComplete="current-password"
               className="w-full px-4 py-3 border border-charcoal/20 focus:outline-none focus:border-gold"
             />
             <p className="text-xs text-charcoal/60 mt-1">Minimum 6 characters</p>

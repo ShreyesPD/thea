@@ -42,6 +42,15 @@ export interface OrderItem {
   product?: Product
 }
 
+export type OrderItemWithProduct = Omit<OrderItem, 'product'> & {
+  product?: Pick<Product, 'id' | 'name' | 'images'>
+}
+
+export interface OrderWithRelations extends Order {
+  users?: Pick<User, 'id' | 'name' | 'email'>
+  order_items?: OrderItemWithProduct[]
+}
+
 export interface Enquiry {
   id: string
   name: string

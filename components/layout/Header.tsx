@@ -3,11 +3,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { ShoppingBag, User, Menu, X } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useCartStore } from '@/lib/store/cart'
+import { createClient } from '@/lib/supabase/client'
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
   const itemCount = useCartStore((state) => state.items.reduce((sum, item) => sum + item.quantity, 0))
 
   const navigation = [
@@ -16,6 +18,42 @@ export default function Header() {
     { name: 'Shop', href: '/shop' },
     { name: 'About', href: '/about' },
   ]
+
+  useEffect(() => {
+    let isMounted = true
+
+    async function checkAdminRole() {
+      try {
+        const supabase = createClient()
+        const {
+          data: { user },
+        } = await supabase.auth.getUser()
+
+        if (!user) {
+          if (isMounted) setIsAdmin(false)
+          return
+        }
+
+        const { data: profile } = await supabase
+          .from('users')
+          .select('role')
+          .eq('id', user.id)
+          .single()
+
+        if (isMounted) {
+          setIsAdmin(profile?.role === 'admin')
+        }
+      } catch {
+        if (isMounted) setIsAdmin(false)
+      }
+    }
+
+    checkAdminRole()
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 bg-ivory/95 backdrop-blur-sm border-b border-charcoal/10">
@@ -27,6 +65,7 @@ export default function Header() {
               src="/thea-logo.png"
               alt="Thea Fashion Boutique"
               fill
+              sizes="(max-width: 768px) 40vw, (max-width: 1024px) 25vw, 15vw"
               className="object-contain"
               priority
             />
@@ -45,6 +84,14 @@ export default function Header() {
           </div>
 
           <div className="flex items-center space-x-4 md:space-x-6">
+            {isAdmin && (
+              <Link
+                href="/admin"
+                className="hidden md:inline-flex items-center gap-2 rounded-full border border-charcoal/20 px-4 py-2 text-xs tracking-wide uppercase text-charcoal hover:bg-charcoal hover:text-ivory transition"
+              >
+                Admin Dashboard
+              </Link>
+            )}
             <Link href="/account" className="hover:text-gold transition-colors">
               <User className="w-5 h-5" />
             </Link>
