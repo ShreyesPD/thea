@@ -92,24 +92,30 @@ export default function Header() {
                 Admin Dashboard
               </Link>
             )}
-            <Link href="/account" className="hover:text-gold transition-colors">
-              <User className="w-5 h-5" />
+            <Link href="/account" aria-label="My account" className="hover:text-gold transition-colors">
+              <User className="w-5 h-5" aria-hidden="true" />
             </Link>
-            
-            <Link href="/cart" className="relative hover:text-gold transition-colors">
-              <ShoppingBag className="w-5 h-5" />
+
+            <Link
+              href="/cart"
+              aria-label={itemCount > 0 ? `Shopping cart (${itemCount} items)` : 'Shopping cart'}
+              className="relative hover:text-gold transition-colors"
+            >
+              <ShoppingBag className="w-5 h-5" aria-hidden="true" />
               {itemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-charcoal text-ivory text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                <span aria-hidden="true" className="absolute -top-2 -right-2 bg-charcoal text-ivory text-xs w-5 h-5 rounded-full flex items-center justify-center">
                   {itemCount}
                 </span>
               )}
             </Link>
 
             <button
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
               className="md:hidden hover:text-gold transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
             </button>
           </div>
         </div>

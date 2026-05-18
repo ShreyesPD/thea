@@ -49,15 +49,20 @@ export default function InventoryTable({ products, updateStockAction }: Inventor
             <td className="px-4 py-3">
               <form action={updateStockAction} className="flex items-center justify-end gap-2 text-sm">
                 <input type="hidden" name="id" value={product.id} />
+                <label htmlFor={`stock-${product.id}`} className="sr-only">
+                  Stock quantity for {product.name}
+                </label>
                 <input
+                  id={`stock-${product.id}`}
                   type="number"
                   name="stock"
                   min={0}
                   defaultValue={product.stock}
                   className="w-24 rounded-xl border border-charcoal/20 px-3 py-2 text-sm"
                 />
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
+                  aria-label={`Update stock for ${product.name}`}
                   className="rounded-xl border border-charcoal/20 px-3 py-2 text-xs uppercase tracking-wide"
                 >
                   Update

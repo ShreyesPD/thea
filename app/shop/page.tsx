@@ -93,7 +93,8 @@ export default async function ShopPage() {
                   <p className="text-sm text-charcoal/70">
                     {products.length} {products.length === 1 ? 'product' : 'products'}
                   </p>
-                  <select className="text-sm border border-charcoal/20 px-4 py-2 focus:outline-none focus:border-gold">
+                  <label htmlFor="sort-by" className="sr-only">Sort by</label>
+                  <select id="sort-by" className="text-sm border border-charcoal/20 px-4 py-2 focus:outline-none focus:border-gold">
                     <option>Sort by: Latest</option>
                     <option>Price: Low to High</option>
                     <option>Price: High to Low</option>

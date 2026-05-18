@@ -78,7 +78,11 @@ export default async function OrdersPage({ searchParams }: OrdersPageProps) {
                   <td className="px-4 py-3">
                     <form action={updateOrderStatus} className="flex items-center justify-end gap-2 text-xs">
                       <input type="hidden" name="id" value={order.id} />
+                      <label htmlFor={`status-${order.id}`} className="sr-only">
+                        Status for order #{order.id.slice(0, 8)}
+                      </label>
                       <select
+                        id={`status-${order.id}`}
                         name="status"
                         defaultValue={order.status}
                         className="rounded-xl border border-charcoal/20 bg-white px-3 py-2 text-xs capitalize"
@@ -89,7 +93,11 @@ export default async function OrdersPage({ searchParams }: OrdersPageProps) {
                           </option>
                         ))}
                       </select>
-                      <button type="submit" className="rounded-xl border border-charcoal/20 px-3 py-2 uppercase tracking-wide">
+                      <button
+                        type="submit"
+                        aria-label={`Update order #${order.id.slice(0, 8)}`}
+                        className="rounded-xl border border-charcoal/20 px-3 py-2 uppercase tracking-wide"
+                      >
                         Update
                       </button>
                     </form>
